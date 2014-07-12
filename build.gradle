@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2-rc1'
+    }
+}
+
+apply plugin: 'fatjar'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = "Main"
+version = '0.0.1'
+description = 'Project'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
+jar {
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    manifest {
+        attributes("Main-Class": "Main")
+    }
+}
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    manifest {
+        attributes("Main-Class": "Main")
+    }
+}
+
+
+repositories {
+    maven {
+        url 'https://repo.eclipse.org/content/groups/releases/'
+    }
+    maven {
+        url 'https://repo.eclipse.org/content/repositories/eclipse-staging/'
+    }
+	mavenCentral()
+}
+
+dependencies {
+    compile 'org.eclipse.jdt:org.eclipse.jdt.core:3.10.0.v20140604-1726'
+    compile 'args4j:args4j:2.0.28'
+    compile 'org.eclipse.core:org.eclipse.core.resources:3.8.101.v20130717-0806'
+    compile 'org.eclipse.core:org.eclipse.core.runtime:3.9.0.v20130326-1255'
+    compile 'org.eclipse.equinox:org.eclipse.equinox.common:3.6.200.v20130402-1505'
+    compile 'org.eclipse:osgi:3.9.1-v20140110-1610'
+    compile 'log4j:log4j:1.2.17'
+//    compile 'org.eclipse.equinox:org.eclipse.equinox.registry:3.5.301.v20130717-1549'
+    compile fileTree(dir: 'lib', include: '*.jar')
+}
