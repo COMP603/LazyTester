@@ -25,7 +25,6 @@ public class AstVisitor extends ASTVisitor {
 			klass.pop();
 	}
 
-	
 	@Override
 	public boolean visit(ConstructorInvocation node) {
 		return super.visit(node);
